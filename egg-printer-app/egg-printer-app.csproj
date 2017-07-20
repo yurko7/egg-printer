@@ -71,6 +71,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Printing\ArduinoPrinter.cs" />
     <Compile Include="Printing\DotInstruction.cs" />
     <Compile Include="Printing\IPrinter.cs" />
     <Compile Include="Printing\IPrintInstruction.cs" />
