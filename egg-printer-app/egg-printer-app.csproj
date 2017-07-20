@@ -71,8 +71,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Printing\DotInstruction.cs" />
     <Compile Include="Printing\IPrinter.cs" />
     <Compile Include="Printing\IPrintInstruction.cs" />
+    <Compile Include="Printing\LineInstruction.cs" />
+    <Compile Include="Printing\MoveInstruction.cs" />
+    <Compile Include="Printing\PenDownInstruction.cs" />
+    <Compile Include="Printing\PenUpInstruction.cs" />
     <Compile Include="Printing\Printer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
