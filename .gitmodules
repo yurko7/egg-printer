@@ -1,0 +1,3 @@
+[submodule "egg-printer-driver"]
+	path = egg-printer-driver
+	url = git@github.com:yurko7/egg-printer-driver.git

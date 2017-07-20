@@ -95,5 +95,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\egg-printer-driver\Source\ArduinoDriver\ArduinoDriver.csproj">
+      <Project>{1fe32cd3-938f-40a7-b0a5-75cf0a7254d7}</Project>
+      <Name>ArduinoDriver</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
