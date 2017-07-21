@@ -52,12 +52,127 @@
                 <ContentControl Grid.Row="0" Content="{Binding Arduino, Mode=OneTime}"/>
 
                 <TabControl x:Name="PrintSource" Grid.Row="1">
+                    <TabItem Header="Instructions">
+                        <vm:PrintInstructionsViewModel/>
+                    </TabItem>
                 </TabControl>
 
                 <Button Grid.Row="2"
                         Margin="4"
                         Command="{Binding PrintCommand, Mode=OneTime}"
                         CommandParameter="{Binding ElementName=PrintSource, Path=SelectedContent}">Print</Button>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PrintInstructionsViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="3*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0">Instruction:</Label>
+                    <ComboBox x:Name="InstructionType" Grid.Column="1"
+                              SelectedValuePath="Content"
+                              SelectedIndex="0">
+                        <ComboBoxItem Content="{x:Type vm:PenInstructionViewModel}">
+                            <ComboBoxItem.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock>PEN</TextBlock>
+                                </DataTemplate>
+                            </ComboBoxItem.ContentTemplate>
+                        </ComboBoxItem>
+                        <ComboBoxItem Content="{x:Type vm:MoveInstructionViewModel}">
+                            <ComboBoxItem.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock>MOVE</TextBlock>
+                                </DataTemplate>
+                            </ComboBoxItem.ContentTemplate>
+                        </ComboBoxItem>
+                        <ComboBoxItem Content="{x:Type vm:DotInstructionViewModel}">
+                            <ComboBoxItem.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock>DOT</TextBlock>
+                                </DataTemplate>
+                            </ComboBoxItem.ContentTemplate>
+                        </ComboBoxItem>
+                        <ComboBoxItem Content="{x:Type vm:LineInstructionViewModel}">
+                            <ComboBoxItem.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock>LINE</TextBlock>
+                                </DataTemplate>
+                            </ComboBoxItem.ContentTemplate>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <Button Grid.Column="2"
+                            Command="{Binding AddInstructionCommand, Mode=OneTime}"
+                            CommandParameter="{Binding ElementName=InstructionType, Path=SelectedValue}">Add</Button>
+                </Grid>
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding Instructions}">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter Grid.Column="0"/>
+                                            <Button Grid.Column="1"
+                                                    Margin="2"
+                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.RemoveInstructionCommand}"
+                                                    CommandParameter="{TemplateBinding Content}">Remove</Button>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type vm:PenInstructionViewModel}">
+                            <CheckBox IsChecked="{Binding PenDown}">Pen down</CheckBox>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type vm:MoveInstructionViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Move to X:</Label>
+                                <TextBox Text="{Binding X}"/>
+                                <Label>, Y:</Label>
+                                <TextBox Text="{Binding Y}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type vm:DotInstructionViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Dot at X:</Label>
+                                <TextBox Text="{Binding X}"/>
+                                <Label>, Y:</Label>
+                                <TextBox Text="{Binding Y}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type vm:LineInstructionViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <Label>Line from X:</Label>
+                                <TextBox Text="{Binding FromX}"/>
+                                <Label>, Y:</Label>
+                                <TextBox Text="{Binding FromY}"/>
+                                <Label>to X:</Label>
+                                <TextBox Text="{Binding ToX}"/>
+                                <Label>, Y:</Label>
+                                <TextBox Text="{Binding ToY}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
             </Grid>
         </DataTemplate>
 

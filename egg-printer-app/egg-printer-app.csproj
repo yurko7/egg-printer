@@ -75,6 +75,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModels\DotInstructionViewModel.cs" />
+    <Compile Include="ViewModels\InstructionViewModel.cs" />
+    <Compile Include="ViewModels\LineInstructionViewModel.cs" />
+    <Compile Include="ViewModels\MoveInstructionViewModel.cs" />
+    <Compile Include="ViewModels\PenInstructionViewModel.cs" />
+    <Compile Include="ViewModels\PrintInstructionsViewModel.cs" />
     <Compile Include="ViewModels\ArduinoViewModel.cs" />
     <Compile Include="ViewModels\PrinterViewModel.cs" />
     <Compile Include="ViewModels\PrintSourceViewModel.cs" />
