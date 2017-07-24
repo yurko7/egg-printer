@@ -83,6 +83,7 @@
     <Compile Include="Printing\ChangeColorEventArgs.cs" />
     <Compile Include="Printing\ChangeColorInstruction.cs" />
     <Compile Include="Printing\FunctionPrintSource.cs" />
+    <Compile Include="Printing\GeometryPrinter.cs" />
     <Compile Include="ViewModels\ColorInstructionViewModel.cs" />
     <Compile Include="ViewModels\DotInstructionViewModel.cs" />
     <Compile Include="ViewModels\FunctionViewModel.cs" />
