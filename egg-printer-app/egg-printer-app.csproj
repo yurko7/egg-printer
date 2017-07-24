@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\RotateBehavior.cs" />
     <Compile Include="Printing\BinaryImagePrintSource.cs" />
     <Compile Include="Printing\ChangeColorEventArgs.cs" />
     <Compile Include="Printing\ChangeColorInstruction.cs" />
