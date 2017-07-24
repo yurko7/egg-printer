@@ -86,17 +86,20 @@
     <Compile Include="Printing\GeometryPrinter.cs" />
     <Compile Include="ViewModels\ColorInstructionViewModel.cs" />
     <Compile Include="ViewModels\DotInstructionViewModel.cs" />
+    <Compile Include="ViewModels\Egg3DViewModel.cs" />
     <Compile Include="ViewModels\FunctionViewModel.cs" />
     <Compile Include="ViewModels\InstructionViewModel.cs" />
     <Compile Include="ViewModels\LineInstructionViewModel.cs" />
     <Compile Include="ViewModels\MoveInstructionViewModel.cs" />
     <Compile Include="ViewModels\PenInstructionViewModel.cs" />
+    <Compile Include="ViewModels\Preview3DViewModel.cs" />
     <Compile Include="ViewModels\PrintBitmapViewModel.cs" />
     <Compile Include="ViewModels\PrintFunctionsViewModel.cs" />
     <Compile Include="ViewModels\PrintInstructionsViewModel.cs" />
     <Compile Include="ViewModels\ArduinoViewModel.cs" />
     <Compile Include="ViewModels\PrinterViewModel.cs" />
     <Compile Include="ViewModels\PrintSourceViewModel.cs" />
+    <Compile Include="ViewModels\Sphere3DViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

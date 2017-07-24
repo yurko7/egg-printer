@@ -49,30 +49,129 @@
                 <dxmvvm:Interaction.Behaviors>
                     <dxmvvm:MessageBoxService/>
                 </dxmvvm:Interaction.Behaviors>
+
+                <Grid.Resources>
+                    <DrawingImage x:Key="PreviewImage">
+                        <DrawingImage.Drawing>
+                            <GeometryDrawing Geometry="{Binding Preview}">
+                                <GeometryDrawing.Pen>
+                                    <Pen Brush="Black" Thickness="2"/>
+                                </GeometryDrawing.Pen>
+                                <GeometryDrawing.Brush>
+                                    <SolidColorBrush Color="White"/>
+                                </GeometryDrawing.Brush>
+                            </GeometryDrawing>
+                        </DrawingImage.Drawing>
+                    </DrawingImage>
+                </Grid.Resources>
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <ContentControl Grid.Row="0" Content="{Binding Arduino, Mode=OneTime}"/>
-
-                <TabControl x:Name="PrintSource" Grid.Row="1">
-                    <TabItem Header="Instructions">
-                        <vm:PrintInstructionsViewModel/>
-                    </TabItem>
-                    <TabItem Header="Functions">
-                        <vm:PrintFunctionsViewModel/>
-                    </TabItem>
-                    <TabItem Header="Bitmap">
-                        <vm:PrintBitmapViewModel/>
-                    </TabItem>
-                </TabControl>
-
-                <Button Grid.Row="2"
-                        Margin="4"
-                        Command="{Binding PrintCommand, Mode=OneTime}"
-                        CommandParameter="{Binding ElementName=PrintSource, Path=SelectedContent}">Print</Button>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <ComboBox x:Name="Mesh3D" Grid.Row="0"
+                                  SelectedValuePath="Content"
+                                  SelectedIndex="0">
+                            <ComboBoxItem>
+                                <ComboBoxItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>Sphere</TextBlock>
+                                    </DataTemplate>
+                                </ComboBoxItem.ContentTemplate>
+                                <vm:Sphere3DViewModel/>
+                            </ComboBoxItem>
+                            <ComboBoxItem>
+                                <ComboBoxItem.ContentTemplate>
+                                    <DataTemplate>
+                                        <TextBlock>Egg</TextBlock>
+                                    </DataTemplate>
+                                </ComboBoxItem.ContentTemplate>
+                                <vm:Egg3DViewModel/>
+                            </ComboBoxItem>
+                        </ComboBox>
+                        <ContentControl Grid.Row="1"
+                                        Content="{Binding ElementName=Mesh3D, Path=SelectedValue}"/>
+                        <Image Grid.Row="2" Source="{StaticResource PreviewImage}"/>
+                    </Grid>
+                    <TabControl x:Name="PrintSource" Grid.Column="1">
+                        <TabItem Header="Instructions">
+                            <vm:PrintInstructionsViewModel/>
+                        </TabItem>
+                        <TabItem Header="Functions">
+                            <vm:PrintFunctionsViewModel/>
+                        </TabItem>
+                        <TabItem Header="Bitmap">
+                            <vm:PrintBitmapViewModel/>
+                        </TabItem>
+                    </TabControl>
+                </Grid>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Margin="4"
+                            Command="{Binding PrintPreviewCommand, Mode=OneTime}"
+                            CommandParameter="{Binding ElementName=PrintSource, Path=SelectedContent}">Preview</Button>
+                    <Button Grid.Column="1"
+                            Margin="4"
+                            Command="{Binding PrintCommand, Mode=OneTime}"
+                            CommandParameter="{Binding ElementName=PrintSource, Path=SelectedContent}">Print</Button>
+                </Grid>
             </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:Preview3DViewModel}">
+            <Border Background="DimGray">
+                <Viewport3D HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Viewport3D.Camera>
+                        <PerspectiveCamera NearPlaneDistance="1"
+                                           FarPlaneDistance="5"
+                                           Position="0,0,3"
+                                           LookDirection="0,0,-1"
+                                           UpDirection="0,1,0"
+                                           FieldOfView="45" />
+                    </Viewport3D.Camera>
+                    <ModelVisual3D>
+                        <ModelVisual3D.Content>
+                            <Model3DGroup>
+                                <AmbientLight Color="DarkGray" />
+                                <DirectionalLight Color="Silver" Direction="-1,-1,-1" />
+                            </Model3DGroup>
+                        </ModelVisual3D.Content>
+                    </ModelVisual3D>
+                    <ModelUIElement3D>
+                        <GeometryModel3D>
+                            <GeometryModel3D.Geometry>
+                                <MeshGeometry3D Positions="{Binding Positions}"
+                                                TriangleIndices="{Binding TriangleIndices}"
+                                                TextureCoordinates="{Binding TextureCoordinates}"/>
+                            </GeometryModel3D.Geometry>
+                            <GeometryModel3D.Material>
+                                <DiffuseMaterial Color="White">
+                                    <DiffuseMaterial.Brush>
+                                        <ImageBrush ImageSource="{DynamicResource PreviewImage}"/>
+                                    </DiffuseMaterial.Brush>
+                                </DiffuseMaterial>
+                            </GeometryModel3D.Material>
+                        </GeometryModel3D>
+                    </ModelUIElement3D>
+                </Viewport3D>
+            </Border>
         </DataTemplate>
 
         <DataTemplate DataType="{x:Type vm:PrintInstructionsViewModel}">
