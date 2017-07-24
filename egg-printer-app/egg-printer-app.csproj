@@ -69,17 +69,24 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="YuKu.MathExpression, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\YuKu.MathExpression.1.0.0-rc2\lib\net452\YuKu.MathExpression.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Printing\FunctionPrintSource.cs" />
     <Compile Include="ViewModels\DotInstructionViewModel.cs" />
+    <Compile Include="ViewModels\FunctionViewModel.cs" />
     <Compile Include="ViewModels\InstructionViewModel.cs" />
     <Compile Include="ViewModels\LineInstructionViewModel.cs" />
     <Compile Include="ViewModels\MoveInstructionViewModel.cs" />
     <Compile Include="ViewModels\PenInstructionViewModel.cs" />
+    <Compile Include="ViewModels\PrintFunctionsViewModel.cs" />
     <Compile Include="ViewModels\PrintInstructionsViewModel.cs" />
     <Compile Include="ViewModels\ArduinoViewModel.cs" />
     <Compile Include="ViewModels\PrinterViewModel.cs" />

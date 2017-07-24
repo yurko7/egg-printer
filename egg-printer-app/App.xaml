@@ -55,6 +55,9 @@
                     <TabItem Header="Instructions">
                         <vm:PrintInstructionsViewModel/>
                     </TabItem>
+                    <TabItem Header="Functions">
+                        <vm:PrintFunctionsViewModel/>
+                    </TabItem>
                 </TabControl>
 
                 <Button Grid.Row="2"
@@ -170,6 +173,72 @@
                                 <Label>, Y:</Label>
                                 <TextBox Text="{Binding ToY}"/>
                             </StackPanel>
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PrintFunctionsViewModel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Command="{Binding AddFunctionCommand, Mode=OneTime}">Add</Button>
+                <ListBox Grid.Row="1"
+                         ItemsSource="{Binding Functions, Mode=OneTime}"
+                         HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <ContentPresenter Grid.Column="0"/>
+                                            <Button Grid.Column="1"
+                                                    Margin="2"
+                                                    Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ListBox}}, Path=DataContext.RemoveFunctionCommand}"
+                                                    CommandParameter="{TemplateBinding Content}">Remove</Button>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.Resources>
+                        <DataTemplate DataType="{x:Type vm:FunctionViewModel}">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                            Orientation="Horizontal">
+                                    <Label>Parameter T from:</Label>
+                                    <TextBox Text="{Binding ParameterFrom, ValidatesOnExceptions=True}"/>
+                                    <Label>, to:</Label>
+                                    <TextBox Text="{Binding ParameterTo, ValidatesOnExceptions=True}"/>
+                                    <Label>, with step:</Label>
+                                    <TextBox Text="{Binding ParameterStep, ValidatesOnExceptions=True}"/>
+                                </StackPanel>
+                                <Label Grid.Row="1" Grid.Column="0">Function X:</Label>
+                                <TextBox Grid.Row="1" Grid.Column="1"
+                                         Text="{Binding FunctionX, ValidatesOnExceptions=True}"/>
+                                <Label Grid.Row="2" Grid.Column="0">Function Y:</Label>
+                                <TextBox Grid.Row="2" Grid.Column="1"
+                                         Text="{Binding FunctionY, ValidatesOnExceptions=True}"/>
+                            </Grid>
                         </DataTemplate>
                     </ListBox.Resources>
                 </ListBox>
