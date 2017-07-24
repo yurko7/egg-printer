@@ -70,7 +70,7 @@
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="YuKu.MathExpression, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\YuKu.MathExpression.1.0.0-rc2\lib\net452\YuKu.MathExpression.dll</HintPath>
+      <HintPath>..\packages\YuKu.MathExpression.1.0.0\lib\net452\YuKu.MathExpression.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
