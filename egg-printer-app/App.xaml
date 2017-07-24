@@ -58,6 +58,9 @@
                     <TabItem Header="Functions">
                         <vm:PrintFunctionsViewModel/>
                     </TabItem>
+                    <TabItem Header="Bitmap">
+                        <vm:PrintBitmapViewModel/>
+                    </TabItem>
                 </TabControl>
 
                 <Button Grid.Row="2"
@@ -242,6 +245,21 @@
                         </DataTemplate>
                     </ListBox.Resources>
                 </ListBox>
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type vm:PrintBitmapViewModel}">
+            <Grid>
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:OpenFileDialogService CheckFileExists="True"/>
+                </dxmvvm:Interaction.Behaviors>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Button Grid.Row="0"
+                        Command="{Binding LoadBitmapCommand, Mode=OneTime}">Load</Button>
+                <Image Grid.Row="1" Source="{Binding Bitmap}"/>
             </Grid>
         </DataTemplate>
 
