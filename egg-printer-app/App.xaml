@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="clr-namespace:YuKu.EggPrinter.ViewModels"
+             xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:drawing="clr-namespace:System.Drawing;assembly=System.Drawing"
              xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
@@ -44,6 +46,9 @@
 
         <DataTemplate DataType="{x:Type vm:PrinterViewModel}">
             <Grid>
+                <dxmvvm:Interaction.Behaviors>
+                    <dxmvvm:MessageBoxService/>
+                </dxmvvm:Interaction.Behaviors>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition />
@@ -114,6 +119,13 @@
                                 </DataTemplate>
                             </ComboBoxItem.ContentTemplate>
                         </ComboBoxItem>
+                        <ComboBoxItem Content="{x:Type vm:ColorInstructionViewModel}">
+                            <ComboBoxItem.ContentTemplate>
+                                <DataTemplate>
+                                    <TextBlock>COLOR</TextBlock>
+                                </DataTemplate>
+                            </ComboBoxItem.ContentTemplate>
+                        </ComboBoxItem>
                     </ComboBox>
                     <Button Grid.Column="2"
                             Command="{Binding AddInstructionCommand, Mode=OneTime}"
@@ -175,6 +187,24 @@
                                 <TextBox Text="{Binding ToX}"/>
                                 <Label>, Y:</Label>
                                 <TextBox Text="{Binding ToY}"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <DataTemplate DataType="{x:Type vm:ColorInstructionViewModel}">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <ObjectDataProvider x:Key="KnownColors"
+                                                        ObjectType="{x:Type system:Enum}"
+                                                        MethodName="GetValues">
+                                        <ObjectDataProvider.MethodParameters>
+                                            <x:Type TypeName="drawing:KnownColor"/>
+                                        </ObjectDataProvider.MethodParameters>
+                                    </ObjectDataProvider>
+                                </StackPanel.Resources>
+                                <Label>Color:</Label>
+                                <ComboBox ItemsSource="{Binding Source={StaticResource KnownColors}}"
+                                          SelectedItem="{Binding Color}"
+                                          SelectedIndex="0"/>
                             </StackPanel>
                         </DataTemplate>
                     </ListBox.Resources>

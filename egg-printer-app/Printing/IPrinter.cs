@@ -14,5 +14,7 @@ namespace YuKu.EggPrinter.Printing
         Task Dot(Point point);
 
         Task Line(Point from, Point to);
+
+        Task SetColor(KnownColor color);
     }
 }

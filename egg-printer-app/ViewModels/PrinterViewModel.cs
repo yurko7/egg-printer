@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Windows;
 using DevExpress.Mvvm;
 using DevExpress.Mvvm.Native;
 using YuKu.EggPrinter.Printing;
@@ -19,11 +20,19 @@ namespace YuKu.EggPrinter.ViewModels
 
         public IAsyncCommand PrintCommand { get; }
 
-        private Task Print(PrintSourceViewModel printSourceViewModel)
+        private async Task Print(PrintSourceViewModel printSourceViewModel)
         {
             IEnumerable<IPrintInstruction> printSource = printSourceViewModel.GetPrintSource();
             var arduinoPrinter = new ArduinoPrinter(Arduino.Driver);
-            return arduinoPrinter.Print(printSource);
+            arduinoPrinter.ChangeColorRequested += ArduinoPrinterOnChangeColorRequested;
+            await arduinoPrinter.Print(printSource);
+            arduinoPrinter.ChangeColorRequested -= ArduinoPrinterOnChangeColorRequested;
+        }
+
+        private void ArduinoPrinterOnChangeColorRequested(object sender, ChangeColorEventArgs changeColorEventArgs)
+        {
+            IMessageBoxService messageBox = GetService<IMessageBoxService>();
+            messageBox.Show($"Put the {changeColorEventArgs.Color} marker.", "Change Color", MessageBoxButton.OK, MessageBoxImage.Information);
         }
 
         private Boolean CanPrint(PrintSourceViewModel printSourceViewModel)

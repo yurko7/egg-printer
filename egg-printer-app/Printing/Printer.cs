@@ -34,6 +34,8 @@ namespace YuKu.EggPrinter.Printing
 
         public abstract Task Line(Point from, Point to);
 
+        public abstract Task SetColor(KnownColor color);
+
         protected abstract Task BeginPrint();
 
         protected abstract Task EndPrint();

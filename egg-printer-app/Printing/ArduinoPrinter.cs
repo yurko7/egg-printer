@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using ArduinoDriver.SerialProtocol;
 using Point = System.Drawing.Point;
@@ -12,6 +13,8 @@ namespace YuKu.EggPrinter.Printing
         {
             _driver = driver;
         }
+
+        public event EventHandler<ChangeColorEventArgs> ChangeColorRequested;
 
         public override Task PenUp()
         {
@@ -43,6 +46,14 @@ namespace YuKu.EggPrinter.Printing
             return _driver.SendAsync(request);
         }
 
+#pragma warning disable 1998
+        public override async Task SetColor(KnownColor color)
+#pragma warning restore 1998
+        {
+            var eventArgs = new ChangeColorEventArgs(color);
+            OnChangeColorRequested(eventArgs);
+        }
+
         protected override Task BeginPrint()
         {
             return _driver.SendAsync(new BeginRequest());
@@ -57,6 +68,11 @@ namespace YuKu.EggPrinter.Printing
         {
             var printerPoint = new PrinterPoint((Int16) point.X, (Int16) point.Y);
             return printerPoint;
+        }
+
+        private void OnChangeColorRequested(ChangeColorEventArgs eventArgs)
+        {
+            ChangeColorRequested?.Invoke(this, eventArgs);
         }
 
         private readonly ArduinoDriver.ArduinoDriver _driver;
